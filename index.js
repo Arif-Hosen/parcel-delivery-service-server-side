@@ -55,6 +55,23 @@ async function run() {
             res.json(result)
         });
 
+        // get booking
+        app.get('/booking', async (req, res) => {
+            const cursor = bookingCollection.find({});
+
+            const booking = await cursor.toArray();
+            res.json(booking);
+
+        })
+
+        // DELETE API
+        app.delete('/booking/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await bookingCollection.deleteOne(query);
+            res.json(result);
+        })
+
     }
     finally {
 
